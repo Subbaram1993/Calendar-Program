@@ -148,7 +148,52 @@ void birthmonth(int b_da,int b_mon,int week,int Month,int firstDay)
   }
 
 }
-
+/* Date printing after the particular number of days*/
+void date_after_particular_days(int days_after,int y)
+{
+  int month_days[]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+  int i,k=0, p,a;
+  time_t t;
+  t = time(NULL);
+  struct tm tm = *localtime(&t);
+  Date = tm.tm_mday;
+  M=tm.tm_mon;
+  for(i=0;i<M+1;i++)
+  k=k+month_days[i];
+  k=k+Date+days_after;
+ printf("\nNew Date :");
+ if(k<=365)
+ {
+  for(i=0;i<13;i++)
+  {
+   p=k-month_days[i];
+   if(p<=month_days[i+1])
+   {
+    a=i+1;
+    break;
+   }
+   else
+    k=p;
+  }
+ printf(" %d-%d-%d",p,a,y);
+ }
+ else
+ {
+  k=k-365;
+   for(i=0;i<13;i++)
+    {
+     p=k-month_days[i];
+     if(p<=month_days[i+1])
+     {
+       a=i+1;
+       break;
+     }
+     else
+      k=p;
+    }
+  printf(" %d-%d-%d",p,a,y+1);
+ } 
+}
 
 /*Main Function starts*/
 int main(void){
@@ -182,7 +227,10 @@ int main(void){
     printf("%s\n",s);
     printf("\n");
     birth_name(b_mon,b_da,year);
-    printf("\n\n\e[5m\033[1m\033[35mSubbu...\n\e[25m");
+    printf("\n\n\e[5m\033[1m\033[35mHappy Coding...\n\e[25m");
+    printf("\n\033[0mEnter the number of days to print the date:\n ");
+    scanf("%d",&days_after);
+    date_after_particular_days(days_after,year);
     printf("\n");
     return 0;
 }
